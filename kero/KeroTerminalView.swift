@@ -65,6 +65,10 @@ final class KeroTerminalView: AppTerminalView, TerminalBackendSurface {
         performBindingAction("text:\\x0c")
     }
 
+    func sendEnter() {
+        performBindingAction("text:\\x0d")
+    }
+
     func scroll(toFraction fraction: Double) {
         guard let lastScroll else { return }
         scrollToRow(UInt(clamping: lastScroll.row(atDragFraction: fraction)))

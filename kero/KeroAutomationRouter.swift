@@ -182,7 +182,8 @@ enum KeroAutomationRouter {
             )
         }
         let command = argv.map(shellQuote).joined(separator: " ")
-        session.sendCommand(command + "\r")
+        session.sendCommand(command)
+        session.submitCommand()
         return success(request, paneSnapshot(target, caller: caller))
     }
 
@@ -203,7 +204,7 @@ enum KeroAutomationRouter {
         }
         session.sendCommand(text)
         if request.params["enter"]?.boolValue == true {
-            session.sendCommand("\r")
+            session.submitCommand()
         }
         return success(request, paneSnapshot(target, caller: caller))
     }
@@ -302,7 +303,8 @@ enum KeroAutomationRouter {
 
         session.declareAutomationAgent(alias: alias, kind: kind)
         let command = ([kind.executable] + extra).map(shellQuote).joined(separator: " ")
-        session.sendCommand(command + "\r")
+        session.sendCommand(command)
+        session.submitCommand()
         if request.params["focus"]?.boolValue == true {
             TerminalManager.revealSession(id: session.id)
         }
@@ -350,7 +352,7 @@ enum KeroAutomationRouter {
         } else {
             session.sendCommand(normalized)
         }
-        session.sendCommand("\r")
+        session.submitCommand()
         session.markAutomationAgentPrompted()
         return success(request, paneSnapshot(target, caller: caller))
     }

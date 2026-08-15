@@ -438,7 +438,8 @@ final class PlenaWorkflowController: ObservableObject {
                 alias: "plena-\(worker.index + 1)",
                 kind: definition.agent
             )
-            worker.session.sendCommand(definition.agent.executable + "\r")
+            worker.session.sendCommand(definition.agent.executable)
+            worker.session.submitCommand()
             worker.agentLaunchDate = Date()
         }
         for worker in workers {
@@ -607,7 +608,7 @@ final class PlenaWorkflowController: ObservableObject {
             nodes[index].sessionID = worker.session.id
         }
         worker.session.sendCommand("\u{1b}[200~" + prompt + "\u{1b}[201~")
-        worker.session.sendCommand("\r")
+        worker.session.submitCommand()
         worker.session.markAutomationAgentPrompted()
     }
 

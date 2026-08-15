@@ -189,6 +189,8 @@ protocol TerminalBackendSurface: NSView {
 
     func sendText(_ text: String)
 
+    func sendEnter()
+
     /// Sends line-oriented wheel input to the foreground terminal application.
     /// Returns false when the current terminal mode would consume scrolling as
     /// host scrollback instead. Automation uses this only to page a settled
