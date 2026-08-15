@@ -96,6 +96,17 @@ struct RightSidebarView: View {
                         )
                     case .info:
                         InfoPanel(model: info, session: manager.selectedSession)
+                    case .workflow:
+                        if let project = manager.selectedProject {
+                            PlenaWorkflowPanelRepresentable(
+                                controller: project.workflow,
+                                project: project,
+                                root: project.panelRoot(
+                                    followingSessionAt: project.selectedSession?.currentDirectoryPath ?? "/",
+                                    foregroundAt: project.selectedSession?.foregroundDirectoryPath
+                                ).0
+                            )
+                        }
                     }
                 }
                 .frame(width: width)
@@ -179,6 +190,12 @@ struct RightSidebarView: View {
                 title: String(localized: "Git"),
                 help: String(localized: "Git (⇧⌘G)")
             )
+            tabButton(
+                .workflow,
+                systemImage: "point.3.connected.trianglepath.dotted",
+                title: String(localized: "Flow"),
+                help: String(localized: "Workflow")
+            )
         }
         .padding(.horizontal, 8)
         .padding(.top, 12)
@@ -237,6 +254,8 @@ struct RightSidebarView: View {
                 root: cwd, projectRoot: root, projectRootSource: source,
                 shellName: session.shellName, shellPid: session.shellPid
             )
+        case .workflow:
+            project.workflow.load(root: root)
         }
     }
 

@@ -15,6 +15,7 @@ enum RightPanel: String, Codable {
     case files
     case git
     case info
+    case workflow
 }
 
 /// One Find menu command, routed from the menu bar to whichever find

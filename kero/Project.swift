@@ -15,6 +15,7 @@ import Foundation
 @MainActor
 final class Project: nonisolated ObservableObject, nonisolated Identifiable {
     nonisolated let id = UUID()
+    let workflow = PlenaWorkflowController()
 
     /// User-assigned name; when nil the project title follows the
     /// selected session's terminal title.
@@ -325,6 +326,21 @@ final class Project: nonisolated ObservableObject, nonisolated Identifiable {
         )
         if focus { selectedTabID = tab.id }
         return (tab, pane, session)
+    }
+
+    func createWorkflowSession(directory: String) -> TerminalSession {
+        let session = makeSession(directory: directory)
+        let tab = makeTab(content: .session(session))
+        insertNextToSelected(tab)
+        return session
+    }
+
+    func focusWorkflowSession(_ sessionID: UUID) {
+        guard let tab = tabs.first(where: { tab in
+            tab.sessions.contains { $0.id == sessionID }
+        }), let pane = tab.allPanes.first(where: { $0.content.id == sessionID }) else { return }
+        selectedTabID = tab.id
+        tab.focusedPaneID = pane.id
     }
 
     func focusLeft() { selectedTab?.focusLeft() }

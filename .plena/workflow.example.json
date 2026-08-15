@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "id": "plena-self-host",
+  "title": "Plena self-hosted workflow",
+  "agent": "codex",
+  "maxWorkers": 3,
+  "nodes": [
+    {
+      "id": "explore-a",
+      "title": "Explore product space",
+      "prompt": "Independently map the meaningful product behaviors, authorities, and unknown decisions. Write durable findings in the repository.",
+      "dependsOn": [],
+      "verify": []
+    },
+    {
+      "id": "explore-b",
+      "title": "Explore failure space",
+      "prompt": "Independently search for omitted axes, destructive boundaries, concurrency, persistence, and recovery behaviors. Write durable findings in the repository.",
+      "dependsOn": [],
+      "verify": []
+    },
+    {
+      "id": "synthesize",
+      "title": "Synthesize Behavior Atlas",
+      "prompt": "Read every dependency artifact and repository finding. Produce one compact Behavior Atlas; mark unknowable product choices UNKNOWN rather than guessing.",
+      "dependsOn": ["explore-a", "explore-b"],
+      "verify": []
+    },
+    {
+      "id": "critique",
+      "title": "Critique completeness",
+      "prompt": "Try to falsify the synthesized Atlas. Check official registries, missing axes, missing crossings, ambiguous expectations, and exact observation fields.",
+      "dependsOn": ["synthesize"],
+      "verify": []
+    },
+    {
+      "id": "execute",
+      "title": "Implement exact cases",
+      "prompt": "Implement the frozen Atlas cases end to end. Every case must execute and compare the complete canonical observation by exact equality.",
+      "dependsOn": ["critique"],
+      "verify": [
+        ["/usr/bin/git", "diff", "--check"]
+      ]
+    },
+    {
+      "id": "audit",
+      "title": "Audit closure",
+      "prompt": "Independently prove Atlas IDs equal generated, executed, asserted, and exact-comparison IDs. Block on skips, partial matchers, stale digests, extras, or missing IDs.",
+      "dependsOn": ["execute"],
+      "verify": [
+        ["/usr/bin/git", "diff", "--check"]
+      ]
+    }
+  ]
+}

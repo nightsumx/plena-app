@@ -575,6 +575,8 @@ private func printHelp() {
           kero +themes --list [--dark | --light]
           kero +pane <command> [options]
           kero +agent <command> [options]
+          kero +workflow validate [path-to-workflow.json]
+          kero +workflow check <workflow.json> <node-id> <result.json> [project-root]
           kero +help
 
         With no arguments, kero creates a project with a normal login shell.
@@ -604,6 +606,10 @@ private func run() throws {
             namespace: arguments[0],
             arguments: Array(arguments.dropFirst())
         )
+        return
+    }
+    if arguments.first == "+workflow" {
+        try PlenaWorkflowCommandLine.run(arguments: Array(arguments.dropFirst()))
         return
     }
     if arguments.first != "+themes" {

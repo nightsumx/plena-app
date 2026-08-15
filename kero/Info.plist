@@ -5,10 +5,8 @@
 	<!-- This Info.plist is authored by hand (GENERATE_INFOPLIST_FILE = NO) so we
 	     own the Bundle* keys instead of letting the generator derive them.
 	     PRODUCT_NAME remains lowercase so Xcode and the CLI agree on the
-	     executable name. KERO_DISPLAY_NAME supplies Kero for Release and Kero
-	     Debug for Debug. The release bundle id stays sh.kero — it's the app's
-	     identity for Sparkle and code signing, so it must not change. Dynamic
-	     values use build-setting substitution to stay in sync. -->
+	     executable name. KERO_DISPLAY_NAME supplies Plena for Release and Plena
+	     Debug for Debug. Dynamic values use build-setting substitution. -->
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -61,15 +59,8 @@
 	</array>
 
 	<!-- Programs running inside the terminal (e.g. Claude Code voice dictation)
-	     request mic access attributed to Kero as the responsible process. -->
+	     request mic access attributed to Plena as the responsible process. -->
 	<key>NSMicrophoneUsageDescription</key>
-	<string>A program running within Kero would like to use your microphone.</string>
-
-	<!-- Sparkle auto-update configuration.
-	     Appcast feed hosted on Cloudflare R2 (releases.kero.sh); see RELEASING.md. -->
-	<key>SUFeedURL</key>
-	<string>https://releases.kero.sh/appcast.xml</string>
-	<key>SUPublicEDKey</key>
-	<string>gv9GLMPjH5yMQkZMFXnoNfHOyL8/7KGzl/jzAqlzZZY=</string>
+	<string>A program running within Plena would like to use your microphone.</string>
 </dict>
 </plist>

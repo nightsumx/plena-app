@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 110;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -332,7 +332,7 @@
 				CODE_SIGN_ENTITLEMENTS = kero/kero.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -342,7 +342,7 @@
 					"$(SRCROOT)/Vendor/alacritty-bridge/include",
 				);
 				INFOPLIST_FILE = kero/Info.plist;
-				KERO_DISPLAY_NAME = "Kero Debug";
+				KERO_DISPLAY_NAME = "Plena Debug";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -352,12 +352,12 @@
 					"$(BUILT_PRODUCTS_DIR)/alacritty-bridge",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
-				MARKETING_VERSION = 0.1.47;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lkero_alacritty",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = sh.kero.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nightsumx.plena.dev;
 				PRODUCT_NAME = kero;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -379,7 +379,7 @@
 				CODE_SIGN_ENTITLEMENTS = kero/kero.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -389,7 +389,7 @@
 					"$(SRCROOT)/Vendor/alacritty-bridge/include",
 				);
 				INFOPLIST_FILE = kero/Info.plist;
-				KERO_DISPLAY_NAME = Kero;
+				KERO_DISPLAY_NAME = Plena;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -399,12 +399,12 @@
 					"$(BUILT_PRODUCTS_DIR)/alacritty-bridge",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
-				MARKETING_VERSION = 0.1.47;
+				MARKETING_VERSION = 0.1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lkero_alacritty",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = sh.kero;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nightsumx.plena;
 				PRODUCT_NAME = kero;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
