@@ -294,6 +294,7 @@ final class PlenaWorkflowController: ObservableObject {
     private final class Worker {
         let index: Int
         let session: TerminalSession
+        var agentLaunchDate: Date?
         var nodeID: String?
 
         init(index: Int, session: TerminalSession) {
@@ -380,8 +381,6 @@ final class PlenaWorkflowController: ObservableObject {
         }
         workers = (0..<min(definition.maxWorkers, definition.nodes.count)).map { index in
             let session = project.createWorkflowSession(directory: root)
-            session.declareAutomationAgent(alias: "plena-\(index + 1)", kind: definition.agent)
-            session.sendCommand(definition.agent.executable + "\r")
             return Worker(index: index, session: session)
         }
         phase = .running
@@ -433,6 +432,26 @@ final class PlenaWorkflowController: ObservableObject {
         }
 
         unlockReadyNodes(definition)
+        for worker in workers where worker.agentLaunchDate == nil
+            && worker.session.isShellAvailableForAutomation {
+            worker.session.declareAutomationAgent(
+                alias: "plena-\(worker.index + 1)",
+                kind: definition.agent
+            )
+            worker.session.sendCommand(definition.agent.executable + "\r")
+            worker.agentLaunchDate = Date()
+        }
+        for worker in workers {
+            guard let launchDate = worker.agentLaunchDate,
+                  Date().timeIntervalSince(launchDate) > 5,
+                  !worker.session.isAutomationAgentRunning(kind: definition.agent),
+                  worker.session.isShellAvailableForAutomation else { continue }
+            phase = .failed
+            message = "Worker \(worker.index + 1) could not start \(definition.agent.executable)"
+            timer?.invalidate()
+            timer = nil
+            return
+        }
         for worker in workers where worker.nodeID == nil && worker.session.isAutomationAgentRunning(kind: definition.agent) {
             guard let node = nodes.first(where: { $0.phase == .ready }),
                   let task = definition.nodes.first(where: { $0.id == node.id }) else { continue }
