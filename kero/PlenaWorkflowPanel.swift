@@ -111,7 +111,9 @@ final class PlenaWorkflowPanelView: NSView {
             return
         }
         for node in controller.nodes {
-            nodeStack.addArrangedSubview(nodeRow(node))
+            let row = nodeRow(node)
+            nodeStack.addArrangedSubview(row)
+            row.widthAnchor.constraint(equalTo: nodeStack.widthAnchor, constant: -12).isActive = true
         }
     }
 
@@ -142,7 +144,6 @@ final class PlenaWorkflowPanelView: NSView {
         NSLayoutConstraint.activate([
             button.widthAnchor.constraint(equalTo: row.widthAnchor, constant: -8),
             detail.widthAnchor.constraint(equalTo: row.widthAnchor, constant: -8),
-            row.widthAnchor.constraint(equalTo: nodeStack.widthAnchor, constant: -12),
         ])
         row.setAccessibilityElement(true)
         row.setAccessibilityLabel("\(node.title), \(node.phase.rawValue), \(node.detail)")
