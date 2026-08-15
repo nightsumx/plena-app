@@ -18,6 +18,16 @@ final class KeroApplicationDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.servicesProvider = self
+        let directories = Self.directories(
+            from: Array(CommandLine.arguments.dropFirst())
+        )
+        TerminalManager.openDirectories(directories)
+    }
+
+    func application(_ application: NSApplication, open urls: [URL]) {
+        TerminalManager.openDirectories(
+            Self.directories(from: urls.map(\.path))
+        )
     }
 
     /// Opens every directory Finder placed on the service pasteboard as a
@@ -53,6 +63,10 @@ final class KeroApplicationDelegate: NSObject, NSApplicationDelegate {
             candidates = text.split(whereSeparator: \.isNewline).map(String.init)
         }
 
+        return directories(from: candidates)
+    }
+
+    private static func directories(from candidates: [String]) -> [String] {
         let fileManager = FileManager.default
         var seen = Set<String>()
         return candidates.compactMap { candidate in
